@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Contentful UI extension </title>
+    <link rel="stylesheet" href="https://contentful.github.io/ui-extensions-sdk/cf-extension.css">
+    <script src="https://contentful.github.io/ui-extensions-sdk/cf-extension-api.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js'></script>
+    <style>
+        iframe {
+            height: 50rem;
+        }
+        html{height:50rem;}
+        .entity-editor__control-group {
+            height: 100rem;
+        }
+        body{
+            height: 50rem;
+        }
+        input {
+          border: none;
+          width: 100%;
+          font-size: 14px;
+          height: 2rem;
+          text-align: center;
+      }
+      input:hover { background-color: #eee; }
+      input:focus { background-color: #ccf; }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+      td {
+            background-color: #fefefe;
+          border: 1px solid #999;
+          padding: 0;
+      }
+      tr:first-child td input {
+
+          font-weight: bold;
+          text-align: center;
+          user-select: none;
+      }
+      table tr td, table tr th {
+          height: 2rem;
+      }
+      table thead {
+          background-color: #ccc;
+      }
+      td button{
+          width: 100%;
+          height: 2rem;
+      }
+    </style>
+</head>
+
+<body>
+    <div id="content">
+        <div id="app">
+            <table class='cf-form-field'>
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Database</th>
+                        <th>Description</th>
+                        <th>Availability</th>
+                        <th>Add</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for='obj in data' :key='obj.name'>
+                        <td><input type='text' v-model='obj.category' /></td>
+                        <td><input type='text' v-model='obj.database' /></td>
+                        <td><input type='text' v-model='obj.description' /></td>
+                        <td><input type='text' v-model='obj.availability' /></td>
+                        <td><button @click.prevent='addRow()'>add</button></td>
+                        <td><button @click.prevent='remove(obj)' v-if="data.length > 1">remove</button></td>
+                    </tr>
+                </tbody>
+            </table>
+            <span id="data">{{data}}</span>
+        </div>
+    </div>
+    <script>
+        window.contentfulExtension.init(extension => {
+            let value = extension.field.getValue()
+            if (!value) {
+                value = [{
+                    "category": "",
+                    "database": "",
+                    "description": "",
+                    "Availability": ""
+                }]
+            }
+            window.addEventListener('blur', e => {
+                extension.field.setValue(JSON.parse(document.getElementById('data').innerHTML));
+            })
+
+            new Vue({
+                data() {
+                    return {
+                        data: value
+                    }
+                },
+                methods: {
+                    addRow() {
+                        this.data.push({
+                            "category": "",
+                            "database": "",
+                            "description": "",
+                            "Availability": ""
+                        })
+                    },
+                    remove(obj) {
+                        const index = this.data.indexOf(obj);
+                        this.data.splice(index, 1);
+                    }
+                }
+            }).$mount('#app')
+        })
+    </script>
+</body>
+
+</html>

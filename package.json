@@ -1,0 +1,25 @@
+{
+  "name": "cf-contentful-ui-vue-table",
+  "version": "1.0.0",
+  "description": "Contentful UI extension to vue data table",
+  "main": "index.js",
+  "engines": {
+    "node": ">=7.6"
+  },
+  "scripts": {
+    "create": "contentful-extension create --space-id n3p1o4aq7k6m",
+    "update": "contentful-extension update --space-id n3p1o4aq7k6m --force"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yarhtut"
+  },
+  "keywords": [
+    "contentful"
+  ],
+  "author": "yar<yar@boost>",
+  "license": "MIT",
+  "devDependencies": {
+    "contentful-extension-cli": "^2.0.0"
+  }
+}

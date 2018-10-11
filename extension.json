@@ -1,0 +1,7 @@
+
+{
+  "name": "Contentful UI extension vue table",
+  "id": "cf-contentful-ui-vue-table",
+  "fieldTypes": ["Object"],
+  "srcdoc": "./index.html"
+}
